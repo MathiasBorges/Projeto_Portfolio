@@ -1,0 +1,185 @@
+/* Importação de fontes (Opcional, mas melhora o visual) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Container Principal do Portfólio */
+.portfolio-container {
+    width: 210mm; /* Tamanho A4, se desejar */
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* Ícones (Simplificação para PDF - no mundo real, você usaria uma biblioteca de ícones) */
+/* Aqui, vamos usar apenas um caractere especial ou não renderizar nada. */
+.icon-phone::before { content: '📞 '; }
+.icon-mail::before { content: '📧 '; }
+.icon-location::before { content: '📍 '; }
+.icon-graduation::before { content: '🎓 '; }
+.icon-briefcase::before { content: '💼 '; }
+.icon-code::before { content: '</> '; }
+
+/* Estilo do Cabeçalho */
+.header-section {
+    padding: 30px;
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Borda circular */
+    object-fit: cover;
+    margin-right: 20px;
+    border: 3px solid var(--cor-secundaria);
+}
+
+.profile-pic.placeholder {
+    background-color: #ccc;
+}
+
+.text-info h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.text-info h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.bio {
+    font-style: italic;
+    font-size: 14px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Estilo das Seções */
+.section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--cor-principal);
+    border-bottom: 2px solid var(--cor-principal);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.content-box {
+    background-color: var(--cor-secundaria);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.item-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--cor-principal); /* Destaca o título dentro da caixa */
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+    background-color: #fff !important; /* Sobrescreve o fundo para ser mais legível */
+}
+
+.item-subtitle {
+    font-style: italic;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.item-description {
+    white-space: pre-wrap; /* Preserva quebras de linha/espaços para listas */
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Habilidades */
+.skills-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.skill-group {
+    flex: 1;
+    background-color: var(--cor-secundaria);
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.skill-group h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--cor-principal);
+}
+
+.skill-tag {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 5px 5px 0;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    /* Cores estáticas para as tags, para contraste */
+}
+
+.tag-frontend { background-color: #3498db; }
+.tag-backend { background-color: #27ae60; }
+.tag-softskill { background-color: #f39c12; }
+
+
+/* Conecte-se */
+.connect-section {
+    text-align: center;
+    border-top: 1px dashed #ccc;
+    padding-top: 20px;
+}
+
+.social-links a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.linkedin-btn { background-color: #0077B5; }
+.instagram-btn { background-color: #E4405F; }
