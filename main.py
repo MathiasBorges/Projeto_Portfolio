@@ -5,6 +5,11 @@ import sys
 # Garante que os outros módulos possam ser importados
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+# Adicionando  o caminho do GTK3 ao PATH para o WeasyPrint funcionar no Windows (No meu não funcionou sem...)
+gtk3_path = r"C:\Program Files\GTK3-Runtime Win64\bin"
+if os.path.exists(gtk3_path):
+    os.environ['PATH'] = gtk3_path + os.pathsep + os.environ['PATH']
+
 from forms import PortfolioForms
 from personaliza import PortfolioPersonalizacao
 from gerar_pdf import PortfolioPDFGenerator
@@ -18,13 +23,26 @@ class App(ctk.CTk):
     Classe principal da aplicação que gerencia a troca de telas.
     """
     def __init__(self):
-        super().__init__()
+        super().__init__()  # Inicializa a classe base ctk.CTk
         
         self.title("Criador de Portfólio Profissional")
-        # Define um tamanho inicial para a janela
-        self.geometry("700x500") 
+        
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
+        
+        # Define as dimensões da janela
+        width = 700
+        height = 500
+        
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        
+        # Calcula a posição x e y para centralizar
+        x = (screen_width - width) // 2
+        y = (screen_height - height) // 2
+        
+        # Define a geometria final
+        self.geometry(f"{width}x{height}+{x}+{y}")
         
         # Estrutura para manter todas as telas
         self.frames = {}

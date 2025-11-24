@@ -1,0 +1,4 @@
+customtkinter
+Pillow
+Jinja2
+weasyprint

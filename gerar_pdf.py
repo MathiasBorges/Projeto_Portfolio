@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import os
 import webbrowser
+import threading
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML
 from PIL import Image
@@ -52,7 +53,17 @@ class PortfolioPDFGenerator(ctk.CTkFrame):
             state="disabled", # Desabilitado até o PDF ser gerado
             fg_color="green" # Cor diferente para destaque
         )
-        self.open_button.grid(row=3, column=0, padx=20, pady=(0, 100), sticky="n")
+        self.open_button.grid(row=3, column=0, padx=20, pady=(0, 20), sticky="n")
+
+        self.back_button = ctk.CTkButton(
+            self, 
+            text="Voltar ao Início", 
+            command=lambda: controller.show_frame("WelcomeFrame"),
+            height=40,
+            width=250,
+            fg_color="gray"
+        )
+        self.back_button.grid(row=4, column=0, padx=20, pady=(0, 100), sticky="n")
 
     def update_data(self):
         """Atualiza a tela quando ela é exibida."""
@@ -88,7 +99,16 @@ class PortfolioPDFGenerator(ctk.CTkFrame):
             return None
         
     def _generate_pdf(self):
-        """Gera o arquivo HTML e o converte para PDF."""
+        """Inicia o processo de geração de PDF em uma thread separada."""
+        self.generate_button.configure(text="Gerando PDF...", state="disabled")
+        self.info_label.configure(text="Aguarde, gerando seu portfólio...", text_color="blue")
+        self.open_button.configure(state="disabled")
+        
+        # Inicia a thread
+        threading.Thread(target=self._generate_pdf_task).start()
+
+    def _generate_pdf_task(self):
+        """Tarefa de geração do PDF que roda em background."""
         try:
             data = self.controller.portfolio_data
             design = self.controller.design_config
@@ -99,6 +119,12 @@ class PortfolioPDFGenerator(ctk.CTkFrame):
             # Adiciona o caminho da imagem processada aos dados
             data["processed_img_path"] = processed_img_path 
             
+            # --- 1.5. Sanitizar URLs ---
+            # Garante que os links tenham https:// para não serem tratados como locais
+            for key in ["linkedin", "instagram"]:
+                if data.get(key) and not data[key].startswith(("http://", "https://")):
+                    data[key] = f"https://{data[key]}"
+
             # --- 2. Configurar Jinja2 ---
             # Carrega o ambiente Jinja2 com a pasta 'templates'
             env = Environment(loader=FileSystemLoader("templates"))
@@ -116,21 +142,32 @@ class PortfolioPDFGenerator(ctk.CTkFrame):
                 f.write(html_output)
             
             # --- 4. Gerar o PDF com Weasyprint ---
-            HTML(string=html_output).write_pdf(self.generated_file_path)
+            # Define o base_url para que o WeasyPrint encontre o CSS na pasta templates
+            base_url = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates")
+            HTML(string=html_output, base_url=base_url).write_pdf(self.generated_file_path)
 
-            self.info_label.configure(text=f"Portfólio salvo com sucesso em: {os.path.abspath(self.generated_file_path)}")
-            self.open_button.configure(state="normal")
-            self.generate_button.configure(text="PDF Gerado!", state="disabled")
+            # Sucesso - Agenda a atualização da UI na thread principal
+            self.after(0, self._on_generation_success)
             
         except Exception as e:
-            self.info_label.configure(text=f"Erro ao gerar PDF: {e}", text_color="red")
             print(f"Erro detalhado na geração de PDF: {e}")
-            self.generate_button.configure(text="Erro ao Gerar PDF", state="normal")
+            # Erro - Agenda a atualização da UI na thread principal
+            self.after(0, lambda: self._on_generation_error(str(e)))
+
+    def _on_generation_success(self):
+        """Chamado quando a geração do PDF termina com sucesso."""
+        self.info_label.configure(text=f"Portfólio salvo com sucesso em: {os.path.abspath(self.generated_file_path)}", text_color="green")
+        self.open_button.configure(state="normal")
+        self.generate_button.configure(text="PDF Gerado!", state="disabled")
+
+    def _on_generation_error(self, error_message):
+        """Chamado quando ocorre um erro na geração do PDF."""
+        self.info_label.configure(text=f"Erro ao gerar PDF: {error_message}", text_color="red")
+        self.generate_button.configure(text="Tentar Novamente", state="normal")
 
     def _open_pdf(self):
-        """Abre o arquivo PDF gerado no visualizador padrão do sistema."""
+        """Abre o arquivo PDF gerado."""
         if os.path.exists(self.generated_file_path):
-            # Tenta abrir o arquivo no sistema operacional (como um duplo clique)
             webbrowser.open(os.path.abspath(self.generated_file_path))
         else:
             self.info_label.configure(text="O arquivo PDF não foi encontrado.", text_color="red")

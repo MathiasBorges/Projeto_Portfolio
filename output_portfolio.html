@@ -1,96 +1,137 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <title>Portfólio de Pedro Vitor Araújo de Souza</title>
+    <title>Portfólio de Mathias</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    
+
     <style>
         :root {
-            --cor-principal: #535353;
-            --cor-secundaria: #ffffff;
+            --cor-principal: {
+                    {
+                    design.cor_principal
+                }
+            }
+
+            ;
+
+            --cor-secundaria: {
+                    {
+                    design.cor_secundaria
+                }
+            }
+
+            ;
         }
     </style>
 </head>
+
 <body>
     <div class="portfolio-container">
-        
-        <header class="header-section" style="background-color: var(--cor-principal);">
-            <div class="profile-info">
+
+        <!-- Sidebar Esquerda -->
+        <aside class="sidebar" style="background-color: var(--cor-principal);">
+            <div class="profile-section">
                 
-                    <img src="C:\Users\pvara\Downloads\Projeto Portfolio\processed_profile_pic.png" alt="Foto de Perfil" class="profile-pic">
+                <img src="C:\Projeto_Portfolio\processed_profile_pic.png" alt="Foto de Perfil" class="profile-pic">
                 
-                
-                <div class="text-info">
-                    <h1>Pedro Vitor Araújo de Souza</h1>
-                    <h2>Economista</h2>
-                    <p class="bio">Economista com 2 anos de experiência na área e com objetivo de encontrar novas experiências.</p>
-                </div>
+
+                <h1 class="name">Mathias</h1>
+                <h2 class="role">Dev Full Stack</h2>
             </div>
-            
+
             <div class="contact-info">
-                <span><i class="icon-phone"></i> (82) 9 9136-7412</span>
-                <span><i class="icon-mail"></i> pvaraujo2007@gmail.com</span>
-                <span><i class="icon-location"></i> Maceió-AL</span>
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <span class="text">219565985654</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📧</span>
+                    <span class="text">dsmathiasmarques@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <span class="text">Maceió, Al</span>
+                </div>
             </div>
-        </header>
 
-        <section class="section">
-            <h3 class="section-title"><i class="icon-graduation"></i> Formação Acadêmica</h3>
-            <div class="content-box">
-                <p class="item-title" style="background-color: var(--cor-secundaria);">Economia</p>
-                <p class="item-subtitle">UFAL | 8</p>
-                <p class="item-description">Ênfase em grandes empresas.</p>
-            </div>
-        </section>
-        
-        <section class="section">
-            <h3 class="section-title"><i class="icon-briefcase"></i> Experiência Profissional</h3>
-            <div class="content-box">
-                <p class="item-title" style="background-color: var(--cor-secundaria);">Gerenciador de despesas</p>
-                <p class="item-subtitle">Anhanguera | Abril 2024 - Presente</p>
-                <p class="item-description">
-                    Prestativo, Objetivo
-                </p>
-            </div>
-        </section>
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Habilidades</h3>
 
-        <section class="section">
-            <h3 class="section-title"><i class="icon-code"></i> Habilidades</h3>
-            <div class="skills-grid">
-                <div class="skill-group">
+                <div class="skill-category">
                     <h4>Front-end</h4>
-                    
-                        <span class="skill-tag tag-frontend">HTML5 e CSS3</span>
-                    
+                    <div class="tags">
+                        
+                    </div>
                 </div>
-                <div class="skill-group">
-                    <h4>Back-end</h4>
-                    
-                        <span class="skill-tag tag-backend">Node.js</span>
-                    
-                </div>
-                <div class="skill-group">
-                    <h4>Softskills</h4>
-                    
-                        <span class="skill-tag tag-softskill">Liderança</span>
-                    
-                </div>
-            </div>
-        </section>
-        
-        <section class="section connect-section">
-            <h3>Conecte-se comigo</h3>
-            <div class="social-links">
-                
-                    <a href="linkedin.com" class="social-btn linkedin-btn">LinkedIn</a>
-                
-                
-                    <a href="instagram.com" class="social-btn instagram-btn">Instagram</a>
-                
-            </div>
-        </section>
 
+                <div class="skill-category">
+                    <h4>Back-end</h4>
+                    <div class="tags">
+                        
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Soft Skills</h4>
+                    <div class="tags">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section connect">
+                <h3 class="sidebar-title">Conecte-se</h3>
+                <div class="social-links">
+                    
+                    <a href="https://linkedin.com/mathias-borges-marques" class="social-link">LinkedIn</a>
+                    
+                    
+                </div>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal Direita -->
+        <main class="main-content">
+
+            <section class="section">
+                <h3 class="section-title" style="color: var(--cor-principal);">Sobre Mim</h3>
+                <p class="bio-text">My bio..</p>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title" style="color: var(--cor-principal);">Experiência Profissional</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="item-title"></h4>
+                            <span class="item-period" style="background-color: var(--cor-secundaria);"></span>
+                        </div>
+                        <p class="item-subtitle"></p>
+                        <div class="item-description">
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title" style="color: var(--cor-principal);">Formação Acadêmica</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="item-title">Compiutação</h4>
+                            <span class="item-period" style="background-color: var(--cor-secundaria);"></span>
+                        </div>
+                        <p class="item-subtitle">Afya</p>
+                        <p class="item-description"></p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
     </div>
 </body>
+
 </html>

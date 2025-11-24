@@ -2,6 +2,7 @@ import customtkinter as ctk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import os
+import shutil
 
 class PortfolioForms(ctk.CTkFrame):
     """
@@ -127,10 +128,26 @@ class PortfolioForms(ctk.CTkFrame):
             filetypes=[("Image files", "*.png *.jpg *.jpeg")]
         )
         if file_path:
-            self.photo_path = file_path
-            
-            # --- Tratamento de Imagem com Pillow ---
+            # --- Salvar cópia localmente ---
             try:
+                # Cria a pasta uploads se não existir
+                upload_dir = "uploads"
+                if not os.path.exists(upload_dir):
+                    os.makedirs(upload_dir)
+                
+                # Define o caminho de destino
+                filename = os.path.basename(file_path)
+                # Garante um nome seguro ou padronizado se preferir, aqui mantemos o original
+                # mas salvamos na pasta do projeto
+                destination_path = os.path.join(upload_dir, filename)
+                
+                # Copia o arquivo
+                shutil.copy2(file_path, destination_path)
+                
+                # Atualiza o photo_path para o arquivo local
+                self.photo_path = os.path.abspath(destination_path)
+                
+                # --- Tratamento de Imagem com Pillow (usando a cópia local) ---
                 # 1. Abre a imagem
                 img = Image.open(self.photo_path)
                 # 2. Define o tamanho desejado para o preview

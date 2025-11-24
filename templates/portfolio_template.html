@@ -1,98 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Portfólio de {{ dados.nome }}</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    
+
     <style>
         :root {
-            --cor-principal: {{ design.cor_principal }};
-            --cor-secundaria: {{ design.cor_secundaria }};
+            --cor-principal: {
+                    {
+                    design.cor_principal
+                }
+            }
+
+            ;
+
+            --cor-secundaria: {
+                    {
+                    design.cor_secundaria
+                }
+            }
+
+            ;
         }
     </style>
 </head>
+
 <body>
     <div class="portfolio-container">
-        
-        <header class="header-section" style="background-color: var(--cor-principal);">
-            <div class="profile-info">
+
+        <!-- Sidebar Esquerda -->
+        <aside class="sidebar" style="background-color: var(--cor-principal);">
+            <div class="profile-section">
                 {% if dados.processed_img_path %}
-                    <img src="{{ dados.processed_img_path }}" alt="Foto de Perfil" class="profile-pic">
+                <img src="{{ dados.processed_img_path }}" alt="Foto de Perfil" class="profile-pic">
                 {% else %}
-                    <div class="profile-pic placeholder"></div>
+                <div class="profile-pic placeholder"></div>
                 {% endif %}
-                
-                <div class="text-info">
-                    <h1>{{ dados.nome | default('Nome Completo') }}</h1>
-                    <h2>{{ dados.titulo | default('Título Profissional') }}</h2>
-                    <p class="bio">{{ dados.bio | default('Descrição sobre sua paixão por tecnologia e especialidade.') }}</p>
-                </div>
+
+                <h1 class="name">{{ dados.nome | default('Nome Completo') }}</h1>
+                <h2 class="role">{{ dados.titulo | default('Título Profissional') }}</h2>
             </div>
-            
+
             <div class="contact-info">
-                <span><i class="icon-phone"></i> {{ dados.telefone }}</span>
-                <span><i class="icon-mail"></i> {{ dados.email }}</span>
-                <span><i class="icon-location"></i> {{ dados.local }}</span>
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <span class="text">{{ dados.telefone }}</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📧</span>
+                    <span class="text">{{ dados.email }}</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <span class="text">{{ dados.local }}</span>
+                </div>
             </div>
-        </header>
 
-        <section class="section">
-            <h3 class="section-title"><i class="icon-graduation"></i> Formação Acadêmica</h3>
-            <div class="content-box">
-                <p class="item-title" style="background-color: var(--cor-secundaria);">{{ dados.formacao_curso }}</p>
-                <p class="item-subtitle">{{ dados.formacao_instituicao }} | {{ dados.formacao_periodo }}</p>
-                <p class="item-description">{{ dados.formacao_descricao }}</p>
-            </div>
-        </section>
-        
-        <section class="section">
-            <h3 class="section-title"><i class="icon-briefcase"></i> Experiência Profissional</h3>
-            <div class="content-box">
-                <p class="item-title" style="background-color: var(--cor-secundaria);">{{ dados.exp_cargo }}</p>
-                <p class="item-subtitle">{{ dados.exp_empresa }} | {{ dados.exp_periodo }}</p>
-                <p class="item-description">
-                    {{ dados.exp_resumo | replace('\n', '<br>') | safe }}
-                </p>
-            </div>
-        </section>
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Habilidades</h3>
 
-        <section class="section">
-            <h3 class="section-title"><i class="icon-code"></i> Habilidades</h3>
-            <div class="skills-grid">
-                <div class="skill-group">
+                <div class="skill-category">
                     <h4>Front-end</h4>
-                    {% for skill in dados.habilidades_frontend_list %}
-                        <span class="skill-tag tag-frontend">{{ skill }}</span>
-                    {% endfor %}
+                    <div class="tags">
+                        {% for skill in dados.habilidades_frontend_list %}
+                        <span class="tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="skill-group">
-                    <h4>Back-end</h4>
-                    {% for skill in dados.habilidades_backend_list %}
-                        <span class="skill-tag tag-backend">{{ skill }}</span>
-                    {% endfor %}
-                </div>
-                <div class="skill-group">
-                    <h4>Softskills</h4>
-                    {% for skill in dados.habilidades_soft_list %}
-                        <span class="skill-tag tag-softskill">{{ skill }}</span>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-        
-        <section class="section connect-section">
-            <h3>Conecte-se comigo</h3>
-            <div class="social-links">
-                {% if dados.linkedin %}
-                    <a href="{{ dados.linkedin }}" class="social-btn linkedin-btn">LinkedIn</a>
-                {% endif %}
-                {% if dados.instagram %}
-                    <a href="{{ dados.instagram }}" class="social-btn instagram-btn">Instagram</a>
-                {% endif %}
-            </div>
-        </section>
 
+                <div class="skill-category">
+                    <h4>Back-end</h4>
+                    <div class="tags">
+                        {% for skill in dados.habilidades_backend_list %}
+                        <span class="tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Soft Skills</h4>
+                    <div class="tags">
+                        {% for skill in dados.habilidades_soft_list %}
+                        <span class="tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section connect">
+                <h3 class="sidebar-title">Conecte-se</h3>
+                <div class="social-links">
+                    {% if dados.linkedin %}
+                    <a href="{{ dados.linkedin }}" class="social-link">LinkedIn</a>
+                    {% endif %}
+                    {% if dados.instagram %}
+                    <a href="{{ dados.instagram }}" class="social-link">Instagram</a>
+                    {% endif %}
+                </div>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal Direita -->
+        <main class="main-content">
+
+            <section class="section">
+                <h3 class="section-title" style="color: var(--cor-principal);">Sobre Mim</h3>
+                <p class="bio-text">{{ dados.bio | default('Descrição sobre sua paixão por tecnologia e especialidade.')
+                    }}</p>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title" style="color: var(--cor-principal);">Experiência Profissional</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="item-title">{{ dados.exp_cargo }}</h4>
+                            <span class="item-period" style="background-color: var(--cor-secundaria);">{{
+                                dados.exp_periodo }}</span>
+                        </div>
+                        <p class="item-subtitle">{{ dados.exp_empresa }}</p>
+                        <div class="item-description">
+                            {{ dados.exp_resumo | replace('\n', '<br>') | safe }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title" style="color: var(--cor-principal);">Formação Acadêmica</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="item-title">{{ dados.formacao_curso }}</h4>
+                            <span class="item-period" style="background-color: var(--cor-secundaria);">{{
+                                dados.formacao_periodo }}</span>
+                        </div>
+                        <p class="item-subtitle">{{ dados.formacao_instituicao }}</p>
+                        <p class="item-description">{{ dados.formacao_descricao }}</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
     </div>
 </body>
+
 </html>
